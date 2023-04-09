@@ -41,7 +41,7 @@ router.delete("/:id", async (req, res) => {
 //GET
 router.get("/:id", async (req, res) => {
   try {
-    const hotel = await Hotel.findByIdAndUpdate(req.params.id);
+    const hotel = await Hotel.findById(req.params.id);
     res.status(200).json(hotel);
   } catch (err) {
     res.status(500).json(err);
@@ -49,14 +49,20 @@ router.get("/:id", async (req, res) => {
 });
 
 //GET ALL
-router.get("/", async (req, res) => {
-  console.log("hi this is middleware");
-  next();
+router.get("/", async (req, res,next) => {
+  // console.log("hi this is middleware");
+  // return next();
+  const failed = true; 
+  const err = new Error();
+  err.status =404;
+  err.message ="Sorry not found!";
+  if(failed) return next(err);
   try {
-    const hotels = await Hotel.find();
+    const hotels = await Hotel.findById("hakfad");
     res.status(200).json(hotels);
   } catch (err) {
-    res.status(500).json(err);
+    // res.status(500).json(err);
+    next(err);
   }
 });
 
