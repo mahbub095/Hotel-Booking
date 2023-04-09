@@ -1,5 +1,7 @@
 import express, { json } from "express";
 import Hotel from "../models/Hotel.js";
+import { createConnection } from "mongoose";
+import { createError } from "../utils/error.js";
 
 const router = express.Router();
 
@@ -49,19 +51,16 @@ router.get("/:id", async (req, res) => {
 });
 
 //GET ALL
-router.get("/", async (req, res,next) => {
+router.get("/", async (req, res, next) => {
   // console.log("hi this is middleware");
   // return next();
-  const failed = true; 
-  const err = new Error();
-  err.status =404;
-  err.message ="Sorry not found!";
-  if(failed) return next(err);
+  // const failed = true;
+
+  // if (failed) return next(createError(401, "You are not authenticated ! "));
   try {
-    const hotels = await Hotel.findById("hakfad");
+    const hotels = await Hotel.find();
     res.status(200).json(hotels);
   } catch (err) {
-    // res.status(500).json(err);
     next(err);
   }
 });
