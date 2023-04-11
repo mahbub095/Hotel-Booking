@@ -38,6 +38,7 @@ export const getHotel = async (req, res, next) => {
     next(err);
   }
 };
+//Need to know
 export const getHotels = async (req, res, next) => {
   const { min, max, ...others } = req.query;
   try {
