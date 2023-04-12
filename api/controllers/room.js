@@ -3,6 +3,8 @@ import Hotel from "../models/Hotel.js";
 import { createError } from "../utils/error.js";
 
 export const createRoom = async (req, res, next) => {
+    
+    //relationship with hotel room
     const hotelId = req.params.hotelid;
     const newRoom = new Room(req.body);
 
@@ -33,6 +35,7 @@ export const updateRoom = async (req, res, next) => {
         next(err);
     }
 };
+//Need to know
 export const updateRoomAvailability = async (req, res, next) => {
     try {
         await Room.updateOne(
